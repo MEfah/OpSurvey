@@ -1,0 +1,188 @@
+services:
+    nginx-server:
+        build: .
+        ports:
+            - '${NGINX_API_GATEWAY_PORT}:80'
+        depends_on:
+            ms_surveys:
+                condition: service_started
+            ms_users:
+                condition: service_started
+            ms_results:
+                condition: service_started
+            ms_recommendations:
+                condition: service_started
+        volumes:
+          - ./nginx/build:/etc/nginx
+          - ./frontend/build:/var/www
+
+    rabbit:
+        image: rabbitmq:3.13.2
+        environment:
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+        ports:
+            - '15672:15672' # Для management клиента
+        healthcheck:
+            test: rabbitmq-diagnostics -q check_virtual_hosts
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        restart: always
+
+
+    ms_mail:
+        build: ms_mail/.
+        volumes:
+          - ./ms_mail/src:/src
+        command: "python -m uvicorn main:app --host 0.0.0.0 --port 8888"
+        environment:
+            - EMAIL_ADDRESS=${EMAIL_ADDRESS}
+            - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+            - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+
+
+    ms_recommendations:
+        build: ms_recommendations/.
+        volumes:
+          - ./ms_recommendations/src:/src
+        command: "python -m uvicorn main:app --host 0.0.0.0 --port 8888"
+        environment:
+          - POSTGRES_USER=${PG_RECOMMENDATIONS_USER}
+          - POSTGRES_PASSWORD=${PG_RECOMMENDATIONS_PASSWORD}
+          - POSTGRES_DB=${PG_RECOMMENDATIONS_DB}
+          - RABBITMQ_USER=${RABBITMQ_USER}
+          - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+        depends_on:
+            db_recommendations:
+                condition: service_healthy
+            ms_results:
+                condition: service_started
+            ms_users:
+                condition: service_started
+            ms_surveys:
+                condition: service_started
+            rabbit:
+                condition: service_healthy
+
+
+    db_recommendations:
+        image: postgres:16.2
+        restart: unless-stopped
+        environment:
+          - POSTGRES_USER=${PG_RECOMMENDATIONS_USER}
+          - POSTGRES_PASSWORD=${PG_RECOMMENDATIONS_PASSWORD}
+          - POSTGRES_DB=${PG_RECOMMENDATIONS_DB}            
+          - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+            start_period: 10s
+
+
+    ms_results:
+        build: ms_results/.
+        volumes:
+          - ./ms_results/src:/src
+        command: "python -m uvicorn main:app --host 0.0.0.0 --port 8888"
+        environment:
+            MONGO_USER: ${MONGO_RESULTS_USER}
+            MONGO_PASSWORD: ${MONGO_RESULTS_PASSWORD}
+            MONGO_DATABASE: ${MONGO_RESULTS_DB}
+            RABBITMQ_USER: ${RABBITMQ_USER}
+            RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+            JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+        depends_on:
+            db_results:
+                condition: service_healthy
+            ms_users:
+                condition: service_started
+            ms_surveys:
+                condition: service_started
+            rabbit:
+                condition: service_healthy
+
+    db_results:
+        image: mongo
+        restart: unless-stopped
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_RESULTS_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_RESULTS_PASSWORD}
+            MONGO_INITDB_DATABASE: ${MONGO_RESULTS_DB}
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+            interval: 10s
+            timeout: 5s
+            retries: 3
+            start_period: 10s
+
+    ms_surveys:
+        build: ms_surveys/.
+        volumes:
+          - ./ms_surveys/src:/src
+          - ./ms_surveys/media:/media
+        environment:
+            MONGO_USER: ${MONGO_SURVEYS_USER}
+            MONGO_PASSWORD: ${MONGO_SURVEYS_PASSWORD}
+            MONGO_DATABASE: ${MONGO_SURVEYS_DB}
+            RABBITMQ_USER: ${RABBITMQ_USER}
+            RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+            JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+        command: "python -m uvicorn main:app --host 0.0.0.0 --port 8888"
+        depends_on:
+            db_surveys:
+                condition: service_healthy
+            ms_users:
+                condition: service_started
+            rabbit:
+                condition: service_healthy
+
+    db_surveys:
+        image: mongo
+        restart: unless-stopped
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_SURVEYS_USER}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_SURVEYS_PASSWORD}
+            MONGO_INITDB_DATABASE: ${MONGO_SURVEYS_DB}
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+            interval: 10s
+            timeout: 5s
+            retries: 3
+            start_period: 10s
+
+    ms_users:
+        build: ms_users/.
+        environment:
+          - POSTGRES_USER=${PG_USERS_USER}
+          - POSTGRES_PASSWORD=${PG_USERS_PASSWORD}
+          - POSTGRES_DB=${PG_USERS_DB}
+          - RABBITMQ_USER=${RABBITMQ_USER}
+          - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+          - JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}
+          - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}
+          - JWT_ACCESS_TTL=${JWT_ACCESS_TTL}
+          - JWT_REFRESH_TTL=${JWT_REFRESH_TTL}
+        volumes:
+          - ./ms_users/src:/src
+          - ./ms_users/media:/media
+        command: "python -m uvicorn main:app --host 0.0.0.0 --port 8888"
+        depends_on:
+            db_users:
+                condition: service_healthy
+
+    db_users:
+        image: postgres:16.2
+        restart: unless-stopped
+        environment:
+          - POSTGRES_USER=${PG_USERS_USER}
+          - POSTGRES_PASSWORD=${PG_USERS_PASSWORD}
+          - POSTGRES_DB=${PG_USERS_DB}
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 3
+            start_period: 10s

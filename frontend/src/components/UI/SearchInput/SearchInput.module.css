@@ -1,0 +1,23 @@
+.body {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+}
+
+.search {
+  box-sizing: content-box;
+  border: 1px solid var(--panel-border-color);
+  border-radius: 5px 0px 0px 5px;
+  transition: 0.1s ease-in-out;
+  padding-left: 7px;
+  width: 100%;
+  box-shadow: 0px 5px -4px rgba(0,0,0,255);
+}
+
+.search:focus {
+  border: 3px solid var(--foreground-color-primary);
+  border-right-width: 1px;
+  border-radius: 5px 0px 0px 5px;
+  outline: none;
+  transition: 0.1s ease-in-out;
+}

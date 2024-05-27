@@ -1,0 +1,134 @@
+nav {
+  background-color: #fff;
+  color: var(--text-color-primary);
+  border-bottom: 1px solid var(--panel-border-color);
+
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0px 150px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  z-index: 100;
+}
+
+.siteName a {
+  color: var(--text-color-primary);
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-size: 24pt;
+  font-weight: 700;
+}
+
+.navigation {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navigationSelected {
+  font-weight: 700;
+}
+
+.navigation {
+  display: flex;
+  height: 100%;
+
+  a {
+    color: var(--text-color-primary); /* Changed navigation text color to black */
+    text-decoration: none;
+    font-size: 14pt;
+    display: inline;
+    height: 100%;
+    padding: 20px 15px;
+    transition: background-color 0.1s ease-in-out;
+  }
+
+  a:hover {
+    background-color: #f2f4f8;
+    transition: background-color 0.1s ease-in-out;
+  }
+
+  a:hover:active {
+    background-color: #e4e9f1;
+    transition: 0s;
+  }
+}
+
+.authFragment *:first-child {
+  margin-right: 25px;
+}
+
+.userName {
+  margin-left: 10px;
+  color: var(--text-color-primary);
+  text-transform: none;
+}
+
+svg.userDropdownIcon {
+  font-size: 26pt;
+  transition: all 0.15s ease-in-out;
+}
+
+svg.userDropdownIcon.open {
+  rotate: 180deg;
+  transition: all 0.15s ease-in-out;
+}
+
+@media (max-width: 1600px) {
+  .search-input {
+    display: none;
+  }
+}
+
+@media (max-width: 1300px) {
+  .navigation {
+    :nth-child(6) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1150px) {
+  .navigation {
+    :nth-child(5) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .navigation {
+    :nth-child(4) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 890px) {
+  .navigation {
+    :nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 750px) {
+  .navigation {
+    :nth-child(2) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 630px) {
+  .navigation {
+    :nth-child(1) {
+      display: none;
+    }
+  }
+}

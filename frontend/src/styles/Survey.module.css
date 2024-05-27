@@ -1,0 +1,169 @@
+.surveyBody {
+  position: relative;
+}
+
+.optionsMenu {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  svg {
+    font-size: 22pt;
+  }
+}
+
+.name {
+  margin-bottom: 10px;
+  margin-right: 50px;
+  font-size: 20pt;
+  font-weight: 700;
+  padding: 0px 5px 0px 5px;
+  line-height: 1.2;
+}
+
+.surveyImage {
+  width: 100%;
+}
+
+.description {
+}
+
+.questionBody {
+  position: relative;
+  margin: 40px 0px;
+
+  .options-menu {
+    right: 2px;
+    top: 2px;
+
+    svg {
+      font-size: 18pt;
+    }
+  }
+}
+
+.questionSettings {
+  display: flex;
+  align-items: center;
+  margin-top: -8px;
+  margin-bottom: 10px;
+
+  > * {
+    display: inline-block;
+  }
+}
+
+.optionsLabel {
+  margin-left: 25px;
+  color: var(--text-color-secondary)
+}
+
+.questionName {
+  margin-right: 45px;
+  font-size: 15pt;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.requiredLabel {
+  font-size: 10pt;
+  color: red;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.options {
+  margin: 0px 0px 10px 0px;
+  * {
+    user-select: none;
+  }
+
+  > * {
+    margin: 10px 0px;
+  }
+}
+
+.resultOption,
+.option {
+  border: 1px solid var(--text-color-secondary);
+  border-radius: 4px;
+  width: 100%;
+  text-align: start;
+
+  display: flex;
+  align-items: center;
+  padding: 8px 10px 8px 10px;
+}
+
+.option:hover {
+  border-color: var(--foreground-color-primary);
+  cursor: pointer;
+}
+
+.overrideDatetime {
+  input {
+    color: var(--text-color-primary);
+  }
+}
+
+.resultOption {
+  position: relative;
+  background-color: transparent;
+
+  z-index: 1;
+  > *:not(.optionsResultsBar) {
+    z-index: 1;
+  }
+}
+
+.optionsResultsBar {
+  position: absolute;
+  display: block;
+  height: 100%;
+  
+  background-color: var(--chart-bar-color);
+  /* TODO вынести цвет в переменную */
+  left: 0;
+  border-radius: 3px;
+}
+
+.optionsResultsValue {
+  white-space: nowrap;
+}
+
+.valueResultsInfo {
+  margin-top: 10px;
+}
+
+.viewResultsLink {
+  margin-top: 10px;
+}
+
+.actionArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+
+  a {
+    margin-right: 25px;
+  }
+}
+
+.resultsActionArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 16px;
+  margin-right: 16px;
+}
+
+.downloadArea {
+  :first-child {
+    margin-left: 15px;
+  }
+  a {
+    margin: 0px 7px;
+  }
+}

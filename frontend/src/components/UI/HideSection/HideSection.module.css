@@ -1,0 +1,54 @@
+.body {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  box-sizing: content-box;
+  margin-bottom: 0px;
+  transition: 0.15s;
+}
+
+.headerContent {
+  display: inline;
+  margin-left: 12px;
+}
+
+.headerButton {
+  user-select: none;
+  cursor: pointer;
+  margin: -6px;
+  padding: 6px;
+  padding-bottom: 2px;
+}
+
+.headerButton:hover {
+  background-color: rgb(241, 242, 250);
+  transition: 0.15s ease-out;
+}
+
+.headerButton:active {
+  background-color: rgb(227, 229, 247);
+  transition: 0.1s;
+}
+
+:not(.hidden) .headerImg {
+  rotate: 180deg;
+  transition: 0.15s ease-in-out;
+}
+
+.hidden .headerImg {
+  rotate: 0deg;
+  transition: 0.15s ease-in-out;
+}
+
+.hidden .header {
+  margin: 0px;
+}
+
+.hidden .content {
+  background-color: aliceblue;
+  display: none;
+}

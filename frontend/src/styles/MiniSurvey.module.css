@@ -1,0 +1,57 @@
+.listBody {
+  padding: 0px;
+}
+
+.listBody .body:first-child {
+  margin-top: 0px;
+}
+
+.listBody .body:last-child {
+  margin-bottom: 0px;
+}
+
+.body{
+  margin: 15px 0px;
+}
+
+.creator{
+  display: inline-block;
+  font-weight: 700;
+  font-size: 9pt;
+}
+
+.name {
+  display: block;
+  margin-top: 7px;
+  font-weight: 700;
+  font-size: 11pt;
+}
+
+.otherInfo {
+  margin-top: 7px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.otherInfo div {
+  display: inline;
+  color: var(--text-color-secondary);
+  font-size: 9pt;
+}
+
+.otherInfo > div > div {
+  margin-right: 10px;
+}
+
+.completionsIcon {
+  font-size: 21pt;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+.date {
+  display: inline-block;
+  color: var(--text-color-secondary);
+  font-weight: 400;
+  font-size: 9pt;
+}

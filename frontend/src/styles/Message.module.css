@@ -1,0 +1,9 @@
+.actionArea {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  :first-child{
+    margin-right: 15px;
+  }
+}

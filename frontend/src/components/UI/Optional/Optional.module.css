@@ -1,0 +1,9 @@
+.body {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  display: inline;
+  user-select: none;
+}

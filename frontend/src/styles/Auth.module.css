@@ -1,0 +1,106 @@
+.screen {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+
+  >* {
+    width: 100%;
+  }
+}
+
+.authPanel {
+  display: flex;
+  flex-flow: column;
+  justify-content: start;
+  align-items: center;
+  width: 400px;
+  padding: 35px 35px 5px 35px;
+}
+
+.headerArea {
+  display: flex;
+  flex-flow: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.siteName {
+  font-size: 15pt;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.authHeader {
+  font-size: 26pt;
+  font-weight: 700;
+  margin-bottom: 25px;
+}
+
+.inputArea {
+  display: flex;
+  gap: 2px;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.textField {
+  flex: 1;
+  height: 1px;
+  width: 100%;
+
+  > * {
+    width: 100%;
+  }
+
+  p {
+    font-weight: 700;
+  }
+
+  label {
+    font-size: 12pt;
+  }
+}
+
+.error p {
+  color: darkred;
+}
+
+.weak p {
+  color: red;
+}
+
+.medium p {
+  color: orange
+}
+
+.strong p {
+  color: green;
+}
+
+.nameHint {
+  color: var(--text-color-secondary);
+}
+
+.actionArea {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-flow: column;
+  justify-content: end;
+  align-items: stretch;
+  align-self: end;
+
+  > a, div, button {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+}
+
+.signup .actionArea {
+  margin-top: 20px;
+}

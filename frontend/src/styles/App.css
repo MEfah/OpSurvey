@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat roboto Arial, Helvetica, sans-serif;
+  font-size: 11pt;
+
+  --text-color-primary: black;
+  --text-color-secondary: #A0A4BF;
+  --panel-border-color: #B6CAFD;
+  --panel-background-color: white;
+
+  --foreground-color-primary: #6088EC;
+  --chart-bar-color: rgb(223, 232, 245);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: rgb(236,237,240);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Нужно т.к. MUI добавляет overflow: hidden и padding-right: 33px, когда открывается меню или вспл. окна*/
+  overflow-y: scroll !important;
+  overflow-x: none;
+  padding: 0 !important;
+}
+
+footer {
+  height: 40px;
+}
+
+h1 {
+  font-size: 25pt;
+}
+
+h2 {
+  font-size: 22pt;
+}
+
+h3 {
+  font-size: 20pt;
+}
+
+h4 {
+  font-size: 18pt;
+}
+
+h5 {
+  font-size: 15pt;
+}
+
+h6 {
+  font-size: 12pt;
+}
+
+.body-columns {
+  display: flex;
+  justify-content: center;
+}
+
+.survey-app {
+  margin: 0px;
+  padding-top: 70px;
+
+  scrollbar-gutter: stable;
+}
+
+.body-column-left {
+  width: 800px;
+}
+
+.body-column-right {
+  width: 340px;
+}
+
+.footer {
+  
+}
+
+.body-column-right-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 15px;
+}
+
+.panel {
+  background: white;
+  border-color: var(--panel-border-color);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  margin: 15px;
+  padding: 15px;
+  box-shadow: none;
+}
+
+.stretch {
+  height: 100%;
+}
+
+.fading-text {
+  mask-image: linear-gradient(#000, transparent);
+}
+
+/* Works for Chrome, Safari, Edge, Opera */
+.hide-number-arrows input::-webkit-outer-spin-button,
+.hide-number-arrows input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Works for Firefox */
+.hide-number-arrows input[type="number"] {
+  appearance: inherit;
+  -moz-appearance: textfield;
+}
+
+.middle-screen{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.modal-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

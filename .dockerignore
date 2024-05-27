@@ -1,0 +1,10 @@
+.venv
+__pycache__/
+Makefile
+.coverage
+.coverage.*
+.cache
+.git
+.pytest_cache
+.hypothesis
+docker-compose.yaml

@@ -1,0 +1,18 @@
+.header {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 14pt;
+  margin-bottom: 15px;
+}
+
+.options {
+  display: flex;
+  align-items: center;
+  margin-bottom: -16px;
+}
+
+.optionsLabel {
+  display: inline-block;
+  color: var(--text-color-secondary);
+  margin-left: 15px;
+}
